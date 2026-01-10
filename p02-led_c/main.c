@@ -1,9 +1,9 @@
 /*
- * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
+ * @Author: wurh0001 z02014268@stu.ahu.edu.cn
  * @Date: 2026-01-10 22:33:51
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2026-01-10 23:14:12
- * @FilePath: /wuury/projects/p02-led_c/main.c
+ * @LastEditors: wurh0001 z02014268@stu.ahu.edu.cn
+ * @LastEditTime: 2026-01-10 23:51:01
+ * @FilePath: /projects/p02-led_c/main.c
  * @Description: 
  * 
  * Copyright (c) 2026 by ${git_name_email}, All Rights Reserved. 
@@ -26,7 +26,7 @@ void clk_start(void)
 */ 
 void led_init(void)
 {
-
+    // 初始化GPIO的复用，使用GPIO1_IO03
 }
 
 // led开启

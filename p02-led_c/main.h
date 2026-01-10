@@ -1,13 +1,14 @@
 /*
- * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
+ * @Author: wurh0001 z02014268@stu.ahu.edu.cn
  * @Date: 2026-01-10 22:23:06
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2026-01-10 23:08:19
- * @FilePath: /wuury/projects/p02-led_c/main.h
+ * @LastEditors: wurh0001 z02014268@stu.ahu.edu.cn
+ * @LastEditTime: 2026-01-10 23:50:08
+ * @FilePath: /projects/p02-led_c/main.h
  * @Description: 
  * 
  * Copyright (c) 2026 by ${git_name_email}, All Rights Reserved. 
  */
+
 #ifndef __MAIN_H
 #define __MAIN_H
 
