@@ -1,8 +1,8 @@
 /*
- * @Author: wurh0001 z02014268@stu.ahu.edu.cn
+ * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-10 22:23:06
- * @LastEditors: wurh0001 z02014268@stu.ahu.edu.cn
- * @LastEditTime: 2026-01-10 23:50:08
+ * @LastEditors: wurh0001 wuuua_ahu@163.com
+ * @LastEditTime: 2026-01-11 00:04:19
  * @FilePath: /projects/p02-led_c/main.h
  * @Description: 
  * 
