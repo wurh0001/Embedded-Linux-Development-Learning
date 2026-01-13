@@ -2,7 +2,7 @@
  * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-13 02:43:05
  * @LastEditors: wurh0001 wuuua_ahu@163.com
- * @LastEditTime: 2026-01-13 21:25:51
+ * @LastEditTime: 2026-01-13 22:28:46
  * @FilePath: /projects/p04-led_bsp/imx6ull/MCIMX6Y2.h
  * @Description: 
  * 
@@ -52,7 +52,7 @@ typedef struct
 } CCM_Type;
 
 #define CCM_BASE (0x20C4000u)
-#define CCM (CCM_Type *)CCM_BASE
+#define CCM ((CCM_Type *)CCM_BASE)
 
 typedef struct
 {
