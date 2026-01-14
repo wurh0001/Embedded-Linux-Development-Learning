@@ -3,7 +3,7 @@
 #include "string.h"
 #include "imxdownload.h"
 
-#define SHELLCMD_LEN	(200)
+#define SHELLCMD_LEN	(512)
 #define BIN_OFFSET		(3072)
 
 /* 此宏指明是否打印u-boot.imx的IVT DCD表信息，不同的开发板其IVT和DCD
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
 	if(argc < 2){
 		printf("Error Usage! Reference Below:\r\n");
-		printf("sudo ./%s <-512m or -256m> <-g or -w> <source_bin> [sd_device]\r\n", argv[0]);
+		printf("sudo ./%s <-512m or -256m> <-g or -w> [-o <output_imx>] <source_bin> [sd_device]\r\n", argv[0]);
 		return -1;
 	}
 
@@ -59,6 +59,7 @@ int main(int argc, char *argv[])
 	int do_write = 1; /* default: write to sd device */
 	char *source_bin = NULL;
 	char *sd_device = NULL;
+	char *output_imx = "load.imx";
 	for(i = 1; i < argc; i++)
 	{
 		char *param = argv[i];
@@ -71,6 +72,21 @@ int main(int argc, char *argv[])
 				do_write = 0;
 			else if(strcmp(param, "-w") == 0)		/* write to sd */
 				do_write = 1;
+			else if(strcmp(param, "-o") == 0) {
+				i++;
+				if(i >= argc) {
+					printf("Error: -o option requires an argument\r\n");
+					return -1;
+				}
+				int len = strlen(argv[i]);
+				if(len > 0 && argv[i][len - 1] == '/') {
+					static char path_buf[SHELLCMD_LEN];
+					snprintf(path_buf, sizeof(path_buf), "%sload.imx", argv[i]);
+					output_imx = path_buf;
+				} else {
+					output_imx = argv[i];
+				}
+			}
 			continue;
 		}
 		if(source_bin == NULL)
@@ -80,7 +96,7 @@ int main(int argc, char *argv[])
 	}
 	if(source_bin == NULL || (do_write && sd_device == NULL)){
 		printf("Error Usage! Reference Below:\r\n");
-		printf("sudo ./%s <-512m or -256m> <-g or -w> <source_bin> [sd_device]\r\n", argv[0]);
+		printf("sudo ./%s <-512m or -256m> <-g or -w> [-o <output_imx>] <source_bin> [sd_device]\r\n", argv[0]);
 		return -1;
 	}
 
@@ -137,14 +153,13 @@ int main(int argc, char *argv[])
 	/* 现在我们已经在buf中构建好了可以用于下载的bin文件，将buf中的数据保存到
 	 * 到一个文件中，文件命名为load.imx
 	 */
-	printf("Delete Old load.imx\r\n");
-	system("rm -rf load.imx");		/* 先删除旧的load.imx文件	*/
+	printf("Delete Old %s\r\n", output_imx);
+	remove(output_imx);
 	
-	printf("Create New load.imx\r\n");
-	system("touch load.imx");		/* 创建新的load.imx文件		*/
-	fp = fopen("load.imx", "wb");	/* 打开laod.imx				*/
+	printf("Create New %s\r\n", output_imx);
+	fp = fopen(output_imx, "wb");	/* 打开laod.imx	*/
 	if(fp == NULL){
-		printf("Cant't Open load.imx!!!\r\n");
+		printf("Cant't Open %s!!!\r\n", output_imx);
 		free(buf);
 		return -1;
 	}
@@ -162,8 +177,8 @@ int main(int argc, char *argv[])
 	if(do_write){
 		/* 构建烧写的shell命令 */
 		cmdbuf = malloc(SHELLCMD_LEN);
-		sprintf(cmdbuf, "sudo dd if=load.imx of=%s bs=512 seek=2 conv=notrunc", sd_device);	
-		printf("Download load.imx to %s  ......\r\n", sd_device);
+		sprintf(cmdbuf, "sudo dd if=%s of=%s bs=512 seek=2 conv=notrunc", output_imx, sd_device);	
+		printf("Download %s to %s  ......\r\n", output_imx, sd_device);
 		
 		/* 执行上面的shell命令 */
 		system(cmdbuf);
