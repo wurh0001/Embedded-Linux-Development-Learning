@@ -35,8 +35,8 @@ OBJS			:= $(SOBJS) $(COBJS)
 VPATH			:= $(SRCDIRS)
 
 .PHONY: clean
-$(TARGET).imx: $(OUTPUTDIR)/$(TARGET).bin
-	../imxdownload -g $(OUTPUTDIR)/$(TARGET).bin
+$(OUTPUTDIR)/$(TARGET).imx: $(OUTPUTDIR)/$(TARGET).bin
+	../imxdownload -g -o $(OUTPUTDIR)/ $(OUTPUTDIR)/$(TARGET).bin
 
 $(OUTPUTDIR)/$(TARGET).bin : $(OBJS)
 	mkdir -p $(OUTPUTDIR)
