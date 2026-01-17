@@ -14,5 +14,6 @@
 
 #include "imx6ull.h"
 void clk_start(void);
+void clk_init(void);
 
 #endif

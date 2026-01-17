@@ -2,8 +2,8 @@
  * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-13 02:43:05
  * @LastEditors: wurh0001 wuuua_ahu@163.com
- * @LastEditTime: 2026-01-13 22:28:46
- * @FilePath: /projects/p04-led_bsp/imx6ull/MCIMX6Y2.h
+ * @LastEditTime: 2026-01-15 22:26:48
+ * @FilePath: /projects/p07_clk/imx6ull/MCIMX6Y2.h
  * @Description: 
  * 
  * Copyright (c) 2026 by ${git_name_email}, All Rights Reserved. 
@@ -53,6 +53,84 @@ typedef struct
 
 #define CCM_BASE (0x20C4000u)
 #define CCM ((CCM_Type *)CCM_BASE)
+
+/** CCM_ANALOG - Register Layout Typedef */
+typedef struct {
+    __IO uint32_t PLL_ARM;                           /**< Analog ARM PLL control Register, offset: 0x0 */
+    __IO uint32_t PLL_ARM_SET;                       /**< Analog ARM PLL control Register, offset: 0x4 */
+    __IO uint32_t PLL_ARM_CLR;                       /**< Analog ARM PLL control Register, offset: 0x8 */
+    __IO uint32_t PLL_ARM_TOG;                       /**< Analog ARM PLL control Register, offset: 0xC */
+    __IO uint32_t PLL_USB1;                          /**< Analog USB1 480MHz PLL Control Register, offset: 0x10 */
+    __IO uint32_t PLL_USB1_SET;                      /**< Analog USB1 480MHz PLL Control Register, offset: 0x14 */
+    __IO uint32_t PLL_USB1_CLR;                      /**< Analog USB1 480MHz PLL Control Register, offset: 0x18 */
+    __IO uint32_t PLL_USB1_TOG;                      /**< Analog USB1 480MHz PLL Control Register, offset: 0x1C */
+    __IO uint32_t PLL_USB2;                          /**< Analog USB2 480MHz PLL Control Register, offset: 0x20 */
+    __IO uint32_t PLL_USB2_SET;                      /**< Analog USB2 480MHz PLL Control Register, offset: 0x24 */
+    __IO uint32_t PLL_USB2_CLR;                      /**< Analog USB2 480MHz PLL Control Register, offset: 0x28 */
+    __IO uint32_t PLL_USB2_TOG;                      /**< Analog USB2 480MHz PLL Control Register, offset: 0x2C */
+    __IO uint32_t PLL_SYS;                           /**< Analog System PLL Control Register, offset: 0x30 */
+    __IO uint32_t PLL_SYS_SET;                       /**< Analog System PLL Control Register, offset: 0x34 */
+    __IO uint32_t PLL_SYS_CLR;                       /**< Analog System PLL Control Register, offset: 0x38 */
+    __IO uint32_t PLL_SYS_TOG;                       /**< Analog System PLL Control Register, offset: 0x3C */
+    __IO uint32_t PLL_SYS_SS;                        /**< 528MHz System PLL Spread Spectrum Register, offset: 0x40 */
+    uint8_t RESERVED_0[12];
+    __IO uint32_t PLL_SYS_NUM;                       /**< Numerator of 528MHz System PLL Fractional Loop Divider Register, offset: 0x50 */
+    uint8_t RESERVED_1[12];
+    __IO uint32_t PLL_SYS_DENOM;                     /**< Denominator of 528MHz System PLL Fractional Loop Divider Register, offset: 0x60 */
+    uint8_t RESERVED_2[12];
+    __IO uint32_t PLL_AUDIO;                         /**< Analog Audio PLL control Register, offset: 0x70 */
+    __IO uint32_t PLL_AUDIO_SET;                     /**< Analog Audio PLL control Register, offset: 0x74 */
+    __IO uint32_t PLL_AUDIO_CLR;                     /**< Analog Audio PLL control Register, offset: 0x78 */
+    __IO uint32_t PLL_AUDIO_TOG;                     /**< Analog Audio PLL control Register, offset: 0x7C */
+    __IO uint32_t PLL_AUDIO_NUM;                     /**< Numerator of Audio PLL Fractional Loop Divider Register, offset: 0x80 */
+    uint8_t RESERVED_3[12];
+    __IO uint32_t PLL_AUDIO_DENOM;                   /**< Denominator of Audio PLL Fractional Loop Divider Register, offset: 0x90 */
+    uint8_t RESERVED_4[12];
+    __IO uint32_t PLL_VIDEO;                         /**< Analog Video PLL control Register, offset: 0xA0 */
+    __IO uint32_t PLL_VIDEO_SET;                     /**< Analog Video PLL control Register, offset: 0xA4 */
+    __IO uint32_t PLL_VIDEO_CLR;                     /**< Analog Video PLL control Register, offset: 0xA8 */
+    __IO uint32_t PLL_VIDEO_TOG;                     /**< Analog Video PLL control Register, offset: 0xAC */
+    __IO uint32_t PLL_VIDEO_NUM;                     /**< Numerator of Video PLL Fractional Loop Divider Register, offset: 0xB0 */
+    uint8_t RESERVED_5[12];
+    __IO uint32_t PLL_VIDEO_DENOM;                   /**< Denominator of Video PLL Fractional Loop Divider Register, offset: 0xC0 */
+    uint8_t RESERVED_6[28];
+    __IO uint32_t PLL_ENET;                          /**< Analog ENET PLL Control Register, offset: 0xE0 */
+    __IO uint32_t PLL_ENET_SET;                      /**< Analog ENET PLL Control Register, offset: 0xE4 */
+    __IO uint32_t PLL_ENET_CLR;                      /**< Analog ENET PLL Control Register, offset: 0xE8 */
+    __IO uint32_t PLL_ENET_TOG;                      /**< Analog ENET PLL Control Register, offset: 0xEC */
+    __IO uint32_t PFD_480;                           /**< 480MHz Clock (PLL3) Phase Fractional Divider Control Register, offset: 0xF0 */
+    __IO uint32_t PFD_480_SET;                       /**< 480MHz Clock (PLL3) Phase Fractional Divider Control Register, offset: 0xF4 */
+    __IO uint32_t PFD_480_CLR;                       /**< 480MHz Clock (PLL3) Phase Fractional Divider Control Register, offset: 0xF8 */
+    __IO uint32_t PFD_480_TOG;                       /**< 480MHz Clock (PLL3) Phase Fractional Divider Control Register, offset: 0xFC */
+    __IO uint32_t PFD_528;                           /**< 528MHz Clock (PLL2) Phase Fractional Divider Control Register, offset: 0x100 */
+    __IO uint32_t PFD_528_SET;                       /**< 528MHz Clock (PLL2) Phase Fractional Divider Control Register, offset: 0x104 */
+    __IO uint32_t PFD_528_CLR;                       /**< 528MHz Clock (PLL2) Phase Fractional Divider Control Register, offset: 0x108 */
+    __IO uint32_t PFD_528_TOG;                       /**< 528MHz Clock (PLL2) Phase Fractional Divider Control Register, offset: 0x10C */
+    uint8_t RESERVED_7[64];
+    __IO uint32_t MISC0;                             /**< Miscellaneous Register 0, offset: 0x150 */
+    __IO uint32_t MISC0_SET;                         /**< Miscellaneous Register 0, offset: 0x154 */
+    __IO uint32_t MISC0_CLR;                         /**< Miscellaneous Register 0, offset: 0x158 */
+    __IO uint32_t MISC0_TOG;                         /**< Miscellaneous Register 0, offset: 0x15C */
+    __IO uint32_t MISC1;                             /**< Miscellaneous Register 1, offset: 0x160 */
+    __IO uint32_t MISC1_SET;                         /**< Miscellaneous Register 1, offset: 0x164 */
+    __IO uint32_t MISC1_CLR;                         /**< Miscellaneous Register 1, offset: 0x168 */
+    __IO uint32_t MISC1_TOG;                         /**< Miscellaneous Register 1, offset: 0x16C */
+    __IO uint32_t MISC2;                             /**< Miscellaneous Register 2, offset: 0x170 */
+    __IO uint32_t MISC2_SET;                         /**< Miscellaneous Register 2, offset: 0x174 */
+    __IO uint32_t MISC2_CLR;                         /**< Miscellaneous Register 2, offset: 0x178 */
+    __IO uint32_t MISC2_TOG;                         /**< Miscellaneous Register 2, offset: 0x17C */
+} CCM_ANALOG_Type;
+
+/* CCM_ANALOG - Peripheral instance base addresses */
+/** Peripheral CCM_ANALOG base address */
+#define CCM_ANALOG_BASE                          (0x20C8000u)
+/** Peripheral CCM_ANALOG base pointer */
+#define CCM_ANALOG                               ((CCM_ANALOG_Type *)CCM_ANALOG_BASE)
+/** Array initializer of CCM_ANALOG peripheral base addresses */
+#define CCM_ANALOG_BASE_ADDRS                    { CCM_ANALOG_BASE }
+/** Array initializer of CCM_ANALOG peripheral base pointers */
+#define CCM_ANALOG_BASE_PTRS                     { CCM_ANALOG }
+
 
 typedef struct
 {
