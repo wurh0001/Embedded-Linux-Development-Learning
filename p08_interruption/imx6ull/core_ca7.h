@@ -624,23 +624,35 @@ FORCEDINLINE __STATIC_INLINE void GIC_Init(void)
 {
   uint32_t i;
   uint32_t irqRegs;
+  // 通过读取 CP15 协处理器的 CBAR (Configuration Base Address Register) 寄存器来获取外设基地址。
+  // GIC 的寄存器映射通常位于此基地址的特定偏移处（分发器 Distributor 在偏移 0x1000，CPU 接口在 0x2000，
+  // 但在结构体 GIC_Type 中已经定义好了这些偏移布局）。
   GIC_Type *gic = (GIC_Type *)(__get_CBAR() & 0xFFFF0000UL);
 
+  // 读取分发器类型寄存器 (D_TYPER)。低 5 位表示支持的中断数量（以 32 个中断为一组）。
   irqRegs = (gic->D_TYPER & 0x1FUL) + 1;
 
   /* On POR, all SPI is in group 0, level-sensitive and using 1-N model */
 
   /* Disable all PPI, SGI and SPI */
+  // 向中断清除使能寄存器 (D_ICENABLER) 写 1。
+  // 这是为了在初始化期间屏蔽所有中断（SGI, PPI, SPI），防止在系统未准备好时意外触发中断，确保系统从一个干净的状态开始。
   for (i = 0; i < irqRegs; i++)
     gic->D_ICENABLER[i] = 0xFFFFFFFFUL;
 
   /* Make all interrupts have higher priority */
+  // 配置 CPU 接口的优先级掩码寄存器 (C_PMR)。
+  // __GIC_PRIO_BITS 在 i.MX6ULL 中定义为 5。计算结果通常为 0xF8。GIC 优先级数值越小，优先级越高。
+  // 设置此值表示：只有优先级数值小于 0xF8 的中断才能被发送给 CPU。这实际上是放行了绝大多数有效优先级的中断。
   gic->C_PMR = (0xFFUL << (8 - __GIC_PRIO_BITS)) & 0xFFUL;
 
   /* No subpriority, all priority level allows preemption */
+  // 它决定了 8 位优先级字段中，多少位用于组优先级（决定抢占），多少位用于子优先级。
+  // 这里设置为将所有有效位都用于组优先级，意味着支持完全的中断抢占。
   gic->C_BPR = 7 - __GIC_PRIO_BITS;
 
   /* Enable group0 distribution */
+  // 使能 GIC 分发器和 CPU 接口
   gic->D_CTLR = 1UL;
 
   /* Enable group0 signaling */
