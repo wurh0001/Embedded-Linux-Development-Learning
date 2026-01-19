@@ -2,13 +2,13 @@
  * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-14 16:11:35
  * @LastEditors: wurh0001 wuuua_ahu@163.com
- * @LastEditTime: 2026-01-14 21:43:46
- * @FilePath: /projects/p05-beep/bsp/beep/beep.c
+ * @LastEditTime: 2026-01-19 21:39:27
+ * @FilePath: /projects/p08_interruption/bsp/beep/beep.c
  * @Description: 
  * 
  * Copyright (c) 2026 by ${git_name_email}, All Rights Reserved. 
  */
-#include "beep.h"
+#include "bsp_beep.h"
 
 void beep_init(void)
 {

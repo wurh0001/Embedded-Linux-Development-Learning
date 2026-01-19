@@ -1,23 +1,18 @@
+/*
+ * @Author: wurh0001 wuuua_ahu@163.com
+ * @Date: 2026-01-18 23:02:55
+ * @LastEditors: wurh0001 wuuua_ahu@163.com
+ * @LastEditTime: 2026-01-19 23:28:04
+ * @FilePath: /projects/p08_interruption/bsp/gpio/bsp_gpio.c
+ * @Description: 
+ * 
+ * Copyright (c) 2026 by wurh0001 wuuua_ahu@163.com, All Rights Reserved. 
+ */
+
 #include "bsp_gpio.h"
-/***************************************************************
-Copyright © zuozhongkai Co., Ltd. 1998-2019. All rights reserved.
-文件名	: 	 bsp_gpio.h
-作者	   : 左忠凯
-版本	   : V1.0
-描述	   : GPIO操作文件。
-其他	   : 无
-论坛 	   : www.wtmembed.com
-日志	   : 初版V1.0 2019/1/4 左忠凯创建
-		 V2.0 2019/1/4 左忠凯修改:
-		 修改gpio_init()函数，支持中断配置.
-		 添加gpio_intconfig()函数，初始化中断
-		 添加gpio_enableint()函数，使能中断
-		 添加gpio_clearintflags()函数，清除中断标志位
-		 
-***************************************************************/
 
 /*
- * @description		: GPIO初始化。
+ * @description		: GPIO初始化。设置GPIO的输入输出属性和中断属性。
  * @param - base	: 要初始化的GPIO组。
  * @param - pin		: 要初始化GPIO在组内的编号。
  * @param - config	: GPIO配置结构体。
@@ -25,15 +20,18 @@ Copyright © zuozhongkai Co., Ltd. 1998-2019. All rights reserved.
  */
 void gpio_init(GPIO_Type *base, int pin, gpio_pin_config_t *config)
 {
+	// 将中断屏蔽寄存器IMR对应位清0，禁止中断
 	base->IMR &= ~(1U << pin);
 	
 	if(config->direction == kGPIO_DigitalInput) /* GPIO作为输入 */
 	{
-		base->GDIR &= ~( 1 << pin);
+		// 将GDIR对应位置0，设置为输入
+		base->GDIR &= ~(1U << pin);
 	}
 	else										/* 输出 */
 	{
-		base->GDIR |= 1 << pin;
+		// 将GDIR对应位置1，设置为输出
+		base->GDIR |= (1U << pin);
 		gpio_pinwrite(base,pin, config->outputLogic);	/* 设置默认输出电平 */
 	}
 	gpio_intconfig(base, pin, config->interruptMode);	/* 中断功能配置 */
@@ -83,8 +81,10 @@ void gpio_intconfig(GPIO_Type* base, unsigned int pin, gpio_interrupt_mode_t pin
 
 	icrShift = pin;
 	
+	// 先将 EDGE_SEL 中对应引脚的位清零。这意味着默认情况下，中断触发方式将由 ICR 寄存器决定，除非用户明确选择了双边沿模式。
 	base->EDGE_SEL &= ~(1U << pin);
 
+	// 确定使用 ICR1 还是 ICR2 寄存器；将ICR寄存器对应位置指针赋值给icr
 	if(pin < 16) 	/* 低16位 */
 	{
 		icr = &(base->ICR1);
@@ -96,21 +96,31 @@ void gpio_intconfig(GPIO_Type* base, unsigned int pin, gpio_interrupt_mode_t pin
 	}
 	switch(pin_int_mode)
 	{
+		// 低电平触发，写入00
 		case(kGPIO_IntLowLevel):
 			*icr &= ~(3U << (2 * icrShift));
 			break;
+		
+		// 高电平触发，写入01
 		case(kGPIO_IntHighLevel):
 			*icr = (*icr & (~(3U << (2 * icrShift)))) | (1U << (2 * icrShift));
 			break;
+		
+		// 上升沿触发，写入10
 		case(kGPIO_IntRisingEdge):
 			*icr = (*icr & (~(3U << (2 * icrShift)))) | (2U << (2 * icrShift));
 			break;
+		
+		// 下降沿触发，写入11
 		case(kGPIO_IntFallingEdge):
 			*icr |= (3U << (2 * icrShift));
 			break;
+
+		// 既有上升沿又有下降沿触发，中断边沿选择寄存器EDGE_SEL对应位置1
 		case(kGPIO_IntRisingOrFallingEdge):
 			base->EDGE_SEL |= (1U << pin);
 			break;
+
 		default:
 			break;
 	}

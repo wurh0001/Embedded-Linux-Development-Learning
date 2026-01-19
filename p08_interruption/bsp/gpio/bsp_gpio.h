@@ -1,20 +1,17 @@
+/*
+ * @Author: wurh0001 wuuua_ahu@163.com
+ * @Date: 2026-01-18 23:02:55
+ * @LastEditors: wurh0001 wuuua_ahu@163.com
+ * @LastEditTime: 2026-01-18 23:08:32
+ * @FilePath: /projects/p08_interruption/bsp/gpio/bsp_gpio.h
+ * @Description: 
+ * 
+ * Copyright (c) 2026 by ${git_name_email}, All Rights Reserved. 
+ */
 #ifndef _BSP_GPIO_H
 #define _BSP_GPIO_H
 #define _BSP_KEY_H
-#include "imx6ul.h"
-/***************************************************************
-Copyright © zuozhongkai Co., Ltd. 1998-2019. All rights reserved.
-文件名	: 	 bsp_gpio.h
-作者	   : 左忠凯
-版本	   : V1.0
-描述	   : GPIO操作文件头文件。
-其他	   : 无
-论坛 	   : www.wtmembed.com
-日志	   : 初版V1.0 2019/1/4 左忠凯创建
-	 	 V2.0 2019/1/4 左忠凯修改
-	 	 添加GPIO中断相关定义
-
-***************************************************************/
+#include "imx6ull.h"
 
 /* 
  * 枚举类型和结构体定义 

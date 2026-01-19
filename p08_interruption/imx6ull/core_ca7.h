@@ -662,10 +662,16 @@ FORCEDINLINE __STATIC_INLINE void GIC_Init(void)
 /*  
  * 使能指定的中断
  */
+// FORCEDINLINE / __STATIC_INLINE: 这是强制内联的宏定义。由于使能中断是一个非常频繁且对性能敏感的操作，内联可以减少函数调用的开销。
+// IRQn_Type IRQn: 参数是中断号（枚举类型），代表你要开启的具体中断
 FORCEDINLINE __STATIC_INLINE void GIC_EnableIRQ(IRQn_Type IRQn)
 {
-  	GIC_Type *gic = (GIC_Type *)(__get_CBAR() & 0xFFFF0000UL);
-  	gic->D_ISENABLER[((uint32_t)(int32_t)IRQn) >> 5] = (uint32_t)(1UL << (((uint32_t)(int32_t)IRQn) & 0x1FUL));
+  // 获取 GIC 的基地址。__get_CBAR() 函数读取 CP15 协处理器的 CBAR (Configuration Base Address Register) 寄存器，
+  // 并通过与 0xFFFF0000UL 进行按位与操作，得到 GIC 的基地址。
+  GIC_Type *gic = (GIC_Type *)(__get_CBAR() & 0xFFFF0000UL);
+  // 通过计算中断号所在的寄存器索引和位位置，向对应的中断使能寄存器 (D_ISENABLER) 写入 1，
+  // 从而使能指定的中断。
+  gic->D_ISENABLER[((uint32_t)(int32_t)IRQn) >> 5] = (uint32_t)(1UL << (((uint32_t)(int32_t)IRQn) & 0x1FUL));
 }
 
 /*  
