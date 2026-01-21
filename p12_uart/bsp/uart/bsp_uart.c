@@ -2,7 +2,7 @@
  * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-21 19:11:52
  * @LastEditors: wurh0001 wuuua_ahu@163.com
- * @LastEditTime: 2026-01-21 22:06:29
+ * @LastEditTime: 2026-01-21 22:36:32
  * @FilePath: /projects/p12_uart/bsp/uart/bsp_uart.c
  * @Description: 
  * 
@@ -284,7 +284,7 @@ void uart_softreset(UART_Type *base)
  * @param - c	: 要发送的字符
  * @return		: 无
  */
-void uart_putc(unsigned char c)
+void putc(unsigned char c)
 {
 	while(((UART1->USR2 >> 3) &0X01) == 0);/* 等待上一次发送完成 */
 	UART1->UTXD = c & 0XFF; 				/* 发送数据 */
@@ -295,10 +295,10 @@ void uart_putc(unsigned char c)
  * @param - str	: 要发送的字符串
  * @return		: 无
  */
-void uart_puts(const char *str)
+void puts(const char *str)
 {
 	while(*str)
-		uart_putc(*str++);
+		putc(*str++);
 }
 
 /*
@@ -306,7 +306,7 @@ void uart_puts(const char *str)
  * @param 		: 无
  * @return		: 接收到的字符
  */
-unsigned char uart_getc(void)
+unsigned char getc(void)
 {
 	while((UART1->USR2 & 0x1) == 0);/* 等待接收完成 */
 	return UART1->URXD;				/* 返回接收到的数据 */

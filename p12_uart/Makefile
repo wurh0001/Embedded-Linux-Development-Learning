@@ -96,11 +96,12 @@ $(OUTPUTDIR)/$(TARGET).bin : $(OBJS)
 
 $(SOBJS) : obj/%.o : %.S
 	mkdir -p obj
-	$(CC) -Wall -nostdlib -c -O2  $(INCLUDE) -o $@ $<
+# 	使用 -fno-builtin 禁用内置函数，以避免链接时出现未定义引用错误
+	$(CC) -Wall -nostdlib -fno-builtin -c -O2  $(INCLUDE) -o $@ $<
 
 $(COBJS) : obj/%.o : %.c
 	mkdir -p obj
-	$(CC) -Wall -nostdlib -c -O2  $(INCLUDE) -o $@ $<
+	$(CC) -Wall -nostdlib -fno-builtin -c -O2  $(INCLUDE) -o $@ $<
 	
 clean:
 	rm -rf $(OUTPUTDIR) obj

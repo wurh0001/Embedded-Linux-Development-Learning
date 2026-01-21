@@ -32,15 +32,15 @@ int main(void)
     
     while(1)
     {
-        uart_puts("请输入1个字符:");
-		a=uart_getc();
-		uart_putc(a);	//回显功能
-		uart_puts("\r\n");
+        puts("请输入1个字符:");
+		a=getc();
+		putc(a);	//回显功能
+		puts("\r\n");
 
 		//显示输入的字符
-		uart_puts("您输入的字符为:");
-		uart_putc(a);
-		uart_puts("\r\n\r\n");
+		puts("您输入的字符为:");
+		putc(a);
+		puts("\r\n\r\n");
 		
 		state = !state;
 		led_switch(state);
