@@ -2,8 +2,8 @@
  * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-19 21:36:28
  * @LastEditors: wurh0001 wuuua_ahu@163.com
- * @LastEditTime: 2026-01-20 00:25:47
- * @FilePath: /projects/p08_interruption/bsp/exit/bsp_exit.c
+ * @LastEditTime: 2026-01-21 21:59:41
+ * @FilePath: /projects/p11_High_precision_delay/bsp/exit/bsp_exit.c
  * @Description: 
  * 
  * Copyright (c) 2026 by ${git_name_email}, All Rights Reserved. 
@@ -49,13 +49,7 @@ void gpio1_io18_irqhandler(void)
 { 
 	static unsigned char state = 0;
 
-	/*
-	 *采用延时消抖，中断服务函数中禁止使用延时函数！因为中断服务需要
-	 *快进快出！！这里为了演示所以采用了延时函数进行消抖，后面我们会讲解
-	 *定时器中断消抖法！！！
- 	 */
-
-	delay_ms(10);
+	delayms(10);
 	if(gpio_pinread(GPIO1, 18) == 0)	/* 按键按下了  */
 	{
 		state = !state;

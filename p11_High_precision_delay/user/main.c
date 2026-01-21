@@ -2,8 +2,8 @@
  * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-14 15:59:17
  * @LastEditors: wurh0001 wuuua_ahu@163.com
- * @LastEditTime: 2026-01-21 14:39:48
- * @FilePath: /projects/p10_Timer_key_debouncing/user/main.c
+ * @LastEditTime: 2026-01-21 21:55:38
+ * @FilePath: /projects/p11_High_precision_delay/user/main.c
  * @Description: 
  * 
  * Copyright (c) 2026 by ${git_name_email}, All Rights Reserved. 
@@ -31,7 +31,7 @@ int main(void)
     {
         state = !state;
         led_switch(state); /* 切换LED状态 */
-        delay_ms(500);           /* 使用bsp_delay中定义的毫秒延时 */
+        delayms(500);           /* 使用bsp_delay中定义的毫秒延时 */
     }
     return 0;
 }

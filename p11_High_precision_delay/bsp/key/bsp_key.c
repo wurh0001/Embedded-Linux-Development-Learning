@@ -57,7 +57,7 @@ int key_getvalue(void)
 
 	if((release==1)&&(gpio_pinread(GPIO1, 18) == 0)) 		/* KEY0 	*/
 	{	
-		delay_ms(10);		/* 延时消抖 		*/
+		delayms(10);		/* 延时消抖 		*/
 		release = 0;	/* 标记按键按下 */
 		if(gpio_pinread(GPIO1, 18) == 0)
 			ret = KEY0_VALUE;
