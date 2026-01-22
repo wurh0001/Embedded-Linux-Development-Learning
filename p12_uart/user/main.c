@@ -2,7 +2,7 @@
  * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-14 15:59:17
  * @LastEditors: wurh0001 wuuua_ahu@163.com
- * @LastEditTime: 2026-01-21 22:27:41
+ * @LastEditTime: 2026-01-22 14:14:48
  * @FilePath: /projects/p12_uart/user/main.c
  * @Description: 
  * 
@@ -19,7 +19,7 @@
 
 int main(void)
 {
-    unsigned char state = 0;
+    unsigned char state = LED_ON;
     unsigned char a;
 
     int_init();                /* 中断初始化 */
@@ -32,18 +32,21 @@ int main(void)
     
     while(1)
     {
-        puts("请输入1个字符:");
+        puts(" 请输入1个字符:");
 		a=getc();
 		putc(a);	//回显功能
 		puts("\r\n");
 
 		//显示输入的字符
-		puts("您输入的字符为:");
+		puts(" 您输入的字符为:");
 		putc(a);
 		puts("\r\n\r\n");
 		
+		/* 翻转状态，实现按一次键切换一次开关 */
 		state = !state;
 		led_switch(state);
+
+        puts(" LED状态已切换\r\n\r\n");
     }
     return 0;
 }
