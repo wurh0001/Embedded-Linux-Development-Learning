@@ -2,7 +2,7 @@
  * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-10 23:46:04
  * @LastEditors: wurh0001 wuuua_ahu@163.com
- * @LastEditTime: 2026-01-18 23:14:00
+ * @LastEditTime: 2026-01-22 22:34:25
  * @FilePath: /projects/README.md
  * @Description: 
  * 
@@ -16,3 +16,10 @@ This repository is used for learning embedded Linux development and serves to st
 
 ## 硬件说明
 学习使用的是正点原子的imx6ull-alpha开发板（EMMC8GB+DDR3L512MB）
+开发平台：Mac mini M4 + orbstack + Ubuntu jammy LTS虚拟机
+交叉编译工具链：arm-linux-gnueabihf-gcc 7.3.0
+烧录工具：
+    SD卡烧录：Mac下通过imxdownload软件烧录
+    USB烧录：Mac下使用uuu工具烧录
+    注：因为orbstack虚拟机无法直通USB设备，所以编译在ubuntu虚拟机中完成，烧录在mac下完成
+串口调试工具：Mac下使用vscode插件"Serial Monitor"进行串口调试
