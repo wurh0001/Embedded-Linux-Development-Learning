@@ -2,7 +2,7 @@
  * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-10 22:33:51
  * @LastEditors: wurh0001 wuuua_ahu@163.com
- * @LastEditTime: 2026-01-11 22:40:45
+ * @LastEditTime: 2026-01-11 22:49:24
  * @FilePath: /projects/p02-led_c/main.c
  * @Description: 
  * 
@@ -105,6 +105,7 @@ void breathing_light_soft(void)
     }
 }
 
+// TODO：用硬件PWM实现呼吸灯效果
 
 int main(void)
 {
