@@ -2,7 +2,7 @@
  * @Author: wurh0001 wuuua_ahu@163.com
  * @Date: 2026-01-14 15:59:17
  * @LastEditors: wurh0001 wuuua_ahu@163.com
- * @LastEditTime: 2026-01-20 00:23:36
+ * @LastEditTime: 2026-01-21 00:26:00
  * @FilePath: /projects/p08_interruption/user/main.c
  * @Description: 
  * 
@@ -15,6 +15,7 @@
 #include "bsp_exit.h"
 #include "bsp_int.h"
 #include "bsp_key.h"
+#include "bsp_epittimer.h"
 
 int main(void)
 {
@@ -26,12 +27,11 @@ int main(void)
     led_init();                /* 初始化LED */
     beep_init();               /* 初始化蜂鸣器 */
     exit_init();               /* 初始化外部中断 */
+    epit_init(0, 66000000/2);
     
     while(1)
     {
-        state = !state;
-        led_switch(LED0, state); /* 切换LED状态 */
-        delay_ms(500);           /* 使用bsp_delay中定义的毫秒延时 */
+        delay_ms(500);
     }
     return 0;
 }
